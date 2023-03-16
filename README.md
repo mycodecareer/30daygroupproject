@@ -33,6 +33,7 @@ Activate the virtual environment
 source venv/bin/activate
 ```
 > `venv\Scripts\activate` for windows users
+
 Install packages
 ```bash
 pip install -r requirements.txt
