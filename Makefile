@@ -39,7 +39,7 @@ fmt:
 	@echo "--> Auto Formatting"
 	@black .
 	@markdownlint --ignore 'frontend/node_modules/**' --config .markdownlint.yaml '**/*.md' -f
-	@yarn prettier --write .
+	@cd frontend && yarn prettier --write . && cd ..
 .PHONY: fmt
 
 ## test: run all tests in the project
