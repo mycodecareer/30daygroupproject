@@ -37,9 +37,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-      - run: cd frontend
-      - run: yarn
-      - run: yarn prettier --check .
+      - name: Install and Run Prettier
+        working-directory: ./frontend
+        run: |
+          yarn
+          yarn prettier --check .
 
   black:
     runs-on: ubuntu-latest
