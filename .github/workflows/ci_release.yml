@@ -62,6 +62,18 @@ jobs:
       # yamllint enable rule:line-length
       - run: flake8 --max-line-length 88 --ignore E203,E501,W503,W605,E722
 
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+          architecture: x64
+
+      - run: pip install -r backend/requirements.txt
+      - run: pytest -v
+
   # check:
   #   name: "Checks and Tests"
   #   runs-on: ubuntu-latest

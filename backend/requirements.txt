@@ -1,0 +1,5 @@
+# Base requirements for Flask Application
+flask
+
+# Requirements for testing
+pytest
