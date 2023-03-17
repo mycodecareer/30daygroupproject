@@ -1,22 +1,25 @@
 # 30daygroupproject
 
-This is the repository for the SDR 30 day builder's challenge group project. It is a recipe app with a react frontend and a python flask backend. 
+This is the repository for the SDR 30 day builder's challenge group project. It is a recipe app with a react frontend and a python flask backend.
 
-## Contributing 
+## Contributing
 
 See our [Contributors Guide](./CONTRIBUTING)
 
 ### Minimal Dev Setup
 
 This project uses the following languages:
+
 - NodeJS
 - Python3
 
 For these languages, this project used the following package managers:
+
 - npm and yarn
 - pip
 
 For code style, this project relies on the following linters:
+
 - Prettier
 - Black
 - Flake8
