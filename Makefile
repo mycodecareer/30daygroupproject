@@ -33,6 +33,7 @@ lint:
 	@markdownlint --config .markdownlint.yaml '**/*.md'
 	@flake8 --max-line-length 88 --ignore E203,E501,W503,W605,E722
 	@black --check .
+	@yamllint --no-warnings .
 .PHONY: lint
 
 fmt:
