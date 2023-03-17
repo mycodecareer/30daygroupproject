@@ -13,21 +13,18 @@ install-hooks:
 	@git config core.hooksPath .githooks
 .PHONY: init-hooks
 
-## build: Build celestia-node binary.
 build:
 	@echo "--> TODO"
 .PHONY: build
 
-## clean: Clean up celestia-node binary.
 clean:
 	@echo "--> TODO"
 
-## deps: install dependencies.
 deps:
 	@echo "--> TODO"
 .PHONY: deps
 
-## lint: Linting *.go files using golangci-lint. Look for .golangci.yml for the list of linters.
+## lint: Run all linters for the project.
 lint: 
 	@echo "--> Running Linters"
 	@markdownlint --config .markdownlint.yaml '**/*.md'
@@ -36,13 +33,20 @@ lint:
 	@yamllint --no-warnings .
 .PHONY: lint
 
+## fmt: Auto format the code based on the linters
 fmt:
 	@echo "--> Auto Formatting"
 	@black .
 	@markdownlint --config .markdownlint.yaml '**/*.md' -f
 .PHONY: fmt
 
-## test-all: Running both unit and swamp tests
+## test: run all tests in the project
 test:
 	@echo "--> TODO"
 .PHONY: test
+
+## backend-test: run all the backend tests
+backend-test:
+	@echo "--> Running Backend Tests"
+	@pytest -v
+.PHONY: backend-test

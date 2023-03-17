@@ -1,6 +1,6 @@
-[![CI and Release](https://github.com/mycodecareer/30daygroupproject/actions/workflows/ci_release.yml/badge.svg)](https://github.com/mycodecareer/30daygroupproject/actions/workflows/ci_release.yml)
-
 # 30daygroupproject
+
+[![CI and Release](https://github.com/mycodecareer/30daygroupproject/actions/workflows/ci_release.yml/badge.svg)](https://github.com/mycodecareer/30daygroupproject/actions/workflows/ci_release.yml)
 
 This is the repository for the SDR 30 day builder's challenge group project. It is a recipe app with a react frontend and a python flask backend.
 
