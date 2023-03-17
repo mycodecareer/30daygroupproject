@@ -30,6 +30,16 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/markdown-lint
 
+  prettier:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: cd frontend
+      - run: npx --no-install prettier --check .
+
   black:
     runs-on: ubuntu-latest
     steps:
