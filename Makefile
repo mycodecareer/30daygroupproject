@@ -27,17 +27,19 @@ deps:
 ## lint: Run all linters for the project.
 lint: 
 	@echo "--> Running Linters"
-	@markdownlint --config .markdownlint.yaml '**/*.md'
+	@markdownlint --ignore 'frontend/node_modules/**' --config .markdownlint.yaml '**/*.md'
 	@flake8 --max-line-length 88 --ignore E203,E501,W503,W605,E722
 	@black --check .
 	@yamllint --no-warnings .
+	@cd frontend && yarn prettier --check . && cd ..
 .PHONY: lint
 
 ## fmt: Auto format the code based on the linters
 fmt:
 	@echo "--> Auto Formatting"
 	@black .
-	@markdownlint --config .markdownlint.yaml '**/*.md' -f
+	@markdownlint --ignore 'frontend/node_modules/**' --config .markdownlint.yaml '**/*.md' -f
+	@yarn prettier --write .
 .PHONY: fmt
 
 ## test: run all tests in the project
