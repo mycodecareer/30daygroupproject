@@ -38,7 +38,8 @@ jobs:
         with:
           node-version: 18
       - run: cd frontend
-      - run: npx --no-install prettier --check .
+      - run: yarn
+      - run: yarn prettier --check .
 
   black:
     runs-on: ubuntu-latest
