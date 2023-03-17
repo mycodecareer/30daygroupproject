@@ -1,0 +1,149 @@
+name: CI and Release
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      version:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: "Semver type of new version (major / minor / patch)"
+        # Input has to be provided for the workflow to run
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/yamllint
+
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/markdown-lint
+
+  black:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+          architecture: x64
+
+      - run: pip install black
+      - run: black --check .
+
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+          architecture: x64
+
+      - run: pip install flake8
+
+      # yamllint disable rule:line-length
+      # E203: https://www.flake8rules.com/rules/E203.html - Whitespace before ':'
+      # E501: https://www.flake8rules.com/rules/E501.html - Line too long
+      # W503: https://www.flake8rules.com/rules/W503.html - Line break occurred before a binary operator
+      # W605: https://www.flake8rules.com/rules/W605.html - Invalid escape sequence
+      # E722: https://www.flake8rules.com/rules/E722.html - Do not use bare except, specify exception instead
+      # yamllint enable rule:line-length
+      - run: flake8 --max-line-length 88 --ignore E203,E501,W503,W605,E722
+
+  # check:
+  #   name: "Checks and Tests"
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       node-version: [14.x, 16.x, 18.x]
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js ${{ inputs.node-version }}
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #     # Yarn equivalent of npm ci.
+  #     - run: yarn install --frozen-lockfile
+  #     - run: yarn lint
+  #     - run: yarn build
+
+  # deploy:
+  #   needs: [check, yamllint, markdown-lint]
+  #   name: "Deploy to Github Pages"
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 18.x
+  #     # Yarn equivalent of npm ci.
+  #     - run: yarn install --frozen-lockfile
+  #     - run: yarn build
+  #     - uses: crazy-max/ghaction-github-pages@v3
+  #       with:
+  #         target_branch: gh-pages
+  #         build_dir: build
+  #         keep_history: true
+  #         verbose: true
+  #         # Dry run when not a push event to main
+  # yamllint disable-line rule:line-length
+  #         dry_run: ${{ github.event_name != 'workflow_dispatch' || github.ref != 'refs/heads/main' }}
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # release:
+  #   needs: [deploy]
+  #   runs-on: ubuntu-latest
+  #   if: ${{ github.event_name == 'workflow_dispatch' }}
+  #   permissions: "write-all"
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Version Release
+  #       uses: ./.github/actions/version-release
+  #       with:
+  #         github-token: ${{secrets.GITHUB_TOKEN}}
+  #         version-bump: ${{inputs.version}}
+
+  # # Auto-merge Dependabot PRs. Requires also `.github/.kodiak.toml`.
+  # dependabot:
+  #   needs: deploy
+  #   name: "Approve and Merge Dependabot PRs"
+  #   # - Must be a PR.
+  #   # - The latest actor must be Dependabot. This prevents other users from
+  #   #   sneaking in changes into the PR.
+  # yamllint disable-line rule:line-length
+  #   if: ${{ github.event_name == 'pull_request' && github.actor == 'dependabot[bot]' }}
+  #   runs-on: ubuntu-latest
+  #   permissions: write-all
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Dependabot metadata
+  #       id: metadata
+  #       uses: dependabot/fetch-metadata@v1.3.6
+  #       with:
+  #         github-token: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Approve PR
+  #       run: gh pr review --approve "$PR_URL"
+  #       env:
+  #         PR_URL: ${{ github.event.pull_request.html_url }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Enable auto-merge for Dependabot PRs
+  #       run: gh pr merge --auto --squash "$PR_URL"
+  #       env:
+  #         PR_URL: ${{ github.event.pull_request.html_url }}
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
