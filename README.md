@@ -28,6 +28,16 @@ For code style, this project relies on the following linters:
 - Yamllint
 - Markdownlint
 
+### Install git hooks
+
+This project utilizes git hooks to proactively lint the codebase. Before contributing, install the git hooks with th following command:
+
+```bash
+make install-hooks
+```
+
+This will run the linters before executing a `git commit`.
+
 ## React Frontend
 
 See [Frontend README](./frontend/README.md)
