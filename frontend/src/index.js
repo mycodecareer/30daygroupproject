@@ -1,14 +1,17 @@
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import Container from "react-bootstrap/Container";
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <div>Hello world!</div>,
+    element: <Container>Hello world!</Container>,
   },
 ]);
 
