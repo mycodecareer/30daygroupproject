@@ -50,5 +50,5 @@ test:
 ## backend-test: run all the backend tests
 backend-test:
 	@echo "--> Running Backend Tests"
-	@pytest -v
+	@cd backend && pytest -v && cd ..
 .PHONY: backend-test
