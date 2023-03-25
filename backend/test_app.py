@@ -25,3 +25,29 @@ def test_get_recipe(client):
         b'{"author":"John Doe","description":"A delicious pizza!","title":"Pizza"}\n'
         in resp.data
     )
+
+def test_post_recipe_empty(client):
+    resp = client.post("/recipe")
+    assert b"Title is missing" in resp.data
+
+def test_post_recipe_only_title(client):
+    resp = client.post("/recipe", data={
+        "title": "Pelmeny"
+    })
+    assert b"Description is missing" in resp.data
+
+def test_post_recipe_wo_author(client):
+    resp = client.post("/recipe", data={
+        "title": "Pelmeny",
+        "description": "Meatballs in dough"
+    })
+    assert b"Who is author by the way?" in resp.data
+
+def test_post_recipe_all_present(client):
+    resp = client.post("/recipe", data={
+        "title": "Pelmeny",
+        "description": "Meatballs in dough",
+        "author": "babushka"
+    })
+    assert (b'{"author":"babushka","description":"Meatballs in dough","title":"Pelmeny"}\n'
+             in resp.data)

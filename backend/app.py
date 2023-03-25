@@ -25,7 +25,7 @@ def recipe():
             record["description"] = request.form.get("description")
 
         if not request.form.get("author"):
-            return "Who is author by the way"
+            return "Who is author by the way?"
         else:
             record["author"] = request.form.get("author")
             
