@@ -28,7 +28,11 @@ def recipe():
             return "Who is author by the way?"
         else:
             record["author"] = request.form.get("author")
-            
+
         return record
     else:
-        return {"title": "Pizza", "description": "A delicious pizza!", "author": "John Doe"}
+        return {
+            "title": "Pizza",
+            "description": "A delicious pizza!",
+            "author": "John Doe",
+        }
