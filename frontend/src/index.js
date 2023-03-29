@@ -1,14 +1,18 @@
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import React from "react";
 import ReactDOM from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MyForm from "./Form";
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./Home";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/form",
     element: <MyForm />,
   },
 ]);
