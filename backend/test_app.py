@@ -27,10 +27,10 @@ def test_get_recipe(client):
     )
 
 
-def test_post_recipe_empty(client):
+def test_post_recipe(client):
     resp = client.post("/recipe")
     assert b"Title is missing" in resp.data
-    
+
     resp = client.post("/recipe", data={"title": "Pelmeny", "author": "babushka"})
     assert b"Description is missing" in resp.data
 
