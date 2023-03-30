@@ -1,17 +1,19 @@
 import reportWebVitals from "./reportWebVitals";
-
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import Container from "react-bootstrap/Container";
-
+import "./index.css";
+import MyForm from "./Form";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./Home";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Container>Hello world!</Container>,
+    element: <Home />,
+  },
+  {
+    path: "/form",
+    element: <MyForm />,
   },
 ]);
 
