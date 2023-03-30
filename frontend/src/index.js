@@ -3,9 +3,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import MyForm from "./Form";
+import MyForm from "./routes/Form";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./Home";
+import Home from "./routes/Home";
 const router = createBrowserRouter([
   {
     path: "/",
