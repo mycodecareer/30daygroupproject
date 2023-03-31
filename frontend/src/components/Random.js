@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from "react";
 
-const API_ENDPOINT = 'https://www.themealdb.com/api/json/v1/1/random.php';
+const API_ENDPOINT = "https://www.themealdb.com/api/json/v1/1/random.php";
 
 const Random = () => {
   const [data, setData] = useState({});
