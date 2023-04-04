@@ -3,3 +3,7 @@ flask
 
 # Requirements for testing
 pytest
+
+# Requirement for using environment variables
+dotenv
+
