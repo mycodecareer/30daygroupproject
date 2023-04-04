@@ -5,5 +5,5 @@ flask
 pytest
 
 # Requirement for using environment variables
-dotenv
+python-dotenv
 
