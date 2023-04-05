@@ -23,7 +23,7 @@ def test_get_home(client):
 def test_get_recipe(client):
     resp = client.get("/recipe")
     assert (
-        b'{\n  "author": "John Doe", \n  "description": "A delicious pizza!", \n  "title": "Pizza"\n}\n'
+        b'{"author":"John Doe","description":"A delicious pizza!","title":"Pizza"}\n'
         in resp.data
     )
 
@@ -49,7 +49,7 @@ def test_post_recipe(client):
         },
     )
     assert (
-        b'{\n  "author": "babushka", \n  "description": "Meatballs in dough", \n  "title": "Pelmeny"\n}\n'
+        b'{"author":"babushka","description":"Meatballs in dough","title":"Pelmeny"}\n'
         in resp.data
     )
 
