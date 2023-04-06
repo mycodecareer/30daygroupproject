@@ -23,7 +23,7 @@ def test_get_home(client):
 def test_get_recipe(client):
     resp = client.get("/recipe")
     assert (
-        b'{"author":"John Doe","description":"A delicious pizza!","title":"Pizza"}\n'
+        b'{\n  "author": "John Doe",\n  "description": "A delicious pizza!",\n  "title": "Pizza"\n}\n'
         in resp.data
     )
 
@@ -49,12 +49,12 @@ def test_post_recipe(client):
         },
     )
     assert (
-        b'{"author":"babushka","description":"Meatballs in dough","title":"Pelmeny"}\n'
+        b'{\n  "author": "babushka",\n  "description": "Meatballs in dough",\n  "title": "Pelmeny"\n}\n'
         in resp.data
     )
 
 
 def test_enviroment_variables(client):
     load_dotenv()
-    assert "FLASK_APP" in dotenv_values()
-    assert "FLASK_ENV" in dotenv_values()
+    assert "FLASK_APP" in dotenv_values(".env")
+    assert "FLASK_DEBUG" in dotenv_values(".env")
